@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect, useRef } from 'react';
 
 function App() {
+  const [counter, setCounter] = useState(0);
+  const [name, setName] = useState('first name');
+  const insidePar = useRef();
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((data) => data.json())
+      .then((users) => setName(users));
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        onClick={() => {
+          setCounter(counter + 1);
+          insidePar.current.innerText = name[counter].name;
+        }}
+      >
+        {counter}
+      </button>
+      <p ref={insidePar}></p>
     </div>
   );
 }
