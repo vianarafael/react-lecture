@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <button
-        onClick={() => {
+        onClick={(item) => {
           setCounter(counter + 1);
           insidePar.current.innerText = name[counter].name;
         }}
